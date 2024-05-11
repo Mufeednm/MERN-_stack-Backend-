@@ -19,9 +19,16 @@ var fs = require("fs");
 //     }
 //     console.log("file created");
 // })         Another way (appendFiles)
-fs.appendFile ("new.txt","it is done by create file by mufeed musthafa by append  \n", (err)=>{
-    if (err) {
-        console.log("its an eroor");
+// fs.appendFile ("new.txt","it is done by create file by mufeed musthafa by append  \n", (err)=>{
+//     if (err) {
+//         console.log("its an eroor");
         
-    }
-    console.log("file created");})  
+//     }
+//     console.log("file created");})  
+
+//  rename file 
+fs.rename("./text.txt","./Rename.txt", (err)=>{if (err) {console.log(err);
+    
+}console.log("renamed");})
+
+
