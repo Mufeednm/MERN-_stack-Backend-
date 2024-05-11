@@ -27,8 +27,12 @@ var fs = require("fs");
 //     console.log("file created");})  
 
 //  rename file 
-fs.rename("./text.txt","./Rename.txt", (err)=>{if (err) {console.log(err);
+// fs.rename("./text.txt","./Rename.txt", (err)=>{if (err) {console.log(err);
     
-}console.log("renamed");})
+// }console.log("renamed");})
 
 
+            // delete  file 
+fs.unlink("./new.txt",(err)=>{if (err) {console.log(err);
+    
+}console.log("deleted"); })
