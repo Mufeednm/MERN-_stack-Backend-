@@ -1,3 +1,11 @@
+const { log } = require("console")
+const http = require("http")
+const server=  http.createServer((req,res)=>{
+    res.write("podaaa")
+    res.end()
+})
+server.listen(3000,()=>{console.log("servering");})
+
 // const http = require ("node:http");
 
 // const server = http.createServer((req,res)=>{
@@ -7,23 +15,39 @@
 // server.listen(3001,()=>{
 //     console.log("SERVER RUNNING ON TIMEj");
 // })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //                   json server
-                const http = require ("node:http");
-                const { json } = require("stream/consumers");
-                
-                const server = http.createServer((req,res)=>{
-                    const superhero ={
-                        firstname:"mufeed",
-                        lastname : "babu"
-                    };
-                
-                    res.writeHead(200, {"content-type": "application/json" })
-                    res.end(JSON.stringify(superhero))
-                }) 
-                server.listen(3000,()=>{
-                    console.log("SERVER RUNNING ON TIMEj");
-                })
-    //   html response 
+// const http = require ("node:http");
+// const { json } = require("stream/consumers");
+
+// const server = http.createServer((req,res)=>{
+//     const superhero ={
+//         firstname:"mufeed",
+//         lastname : "babu"
+//     };
+
+//     res.writeHead(200, {"content-type": "application/json" })
+//     res.end(JSON.stringify(superhero))
+// }) 
+// server.listen(3000,()=>{
+//     console.log("SERVER RUNNING ON TIMEj");
+// })
+//   html response 
 //     const http = require ("node:http");
 //     const fs = require ("node:fs")
 // const { json } = require("stream/consumers");
@@ -42,7 +66,7 @@
 // server.listen(3000,()=>{
 //     console.log("SERVER RUNNING ON TIMEj");
 // })
-        //   html+ js  changes
+//   html+ js  changes
 //         const http = require ("node:http");
 //     const fs = require ("node:fs")
 // const { json } = require("stream/consumers");
