@@ -29,10 +29,46 @@ app.post("/user", async (req,res)=>{
         res.status(201).json({message: "created new user"})
 
 })
-app.get("/", async(req,res)=>{
- const allUser = await user.find()
- res.status(200).send(allUser) 
+
+app.put("/user/:id",async (req,res)=>{
+const id = req.params.id
+const find = await user.findById(id)
+const updateuser=find
+const {name,age,company}  = req.body;
+if(name)updateuser.name=name
+if(age)updateuser.age=age
+if(company)updateuser.company=company
+// console.log(find);
+await updateuser.save()
+res.status(201).json({message: "created new user"})
 })
+app.get("/", async(req,res)=>{
+    const allUser = await user.find()
+    res.status(200).send(allUser) 
+    // console.log(allUser);
+   })
+
+
+   app.delete("/user/delete/:id",async(req,res)=>{
+       const deleteid = req.params.id
+    const allUsers= await user.findByIdAndDelete(deleteid)
+
+
+if (!allUsers) {
+ 
+    res.status(404).json({ message: "User not found" });
+}
+res.status(200).json({ message: "User deleted suceesss" });
+
+// console.log(updateduser);
+console.log(allUsers);
+   })
+   
+
+
+
+
+
 
 app.listen(Port,()=>{
     console.log("server ready");
