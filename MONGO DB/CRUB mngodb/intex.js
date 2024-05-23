@@ -60,6 +60,7 @@ if (!allUsers) {
 }
 res.status(200).json({ message: "User deleted suceesss" });
 
+
 // console.log(updateduser);
 console.log(allUsers);
    })
