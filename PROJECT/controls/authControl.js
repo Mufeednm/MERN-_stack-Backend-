@@ -1,37 +1,48 @@
-import  express from "express";
-import User from '../models/Users.js'
+import express from "express";
+import User from '../models/Users.js';
 import authjoi from "../validation/authJOI.js";
 import bcrypt from "bcrypt";
-const app =express()
-app.use(express.json())
 
-export const SignIn =async(req,res,next)=>{
-// try {
-//     const {username, email,passsword } = req.body;
-//     if (!username&&!email&&!passsword) {
-//       return res.status(400).json({ message: "Name is required" });
-//     }
-//     console.log(username,email,passsword);
-//     res.status(200).json({ message: "OK",username, email,passsword });
-// } catch (error) {
-//     next(error);
-// }
+const app = express();
+app.use(express.json());
 
-// }
-try {
-    const validuser=  await authjoi.validateAsync(req.body);
-    const hashpasssword = bcrypt.hashSync(validuser.password,10)
-    console.log(validuser);
-// send to DB
-const newUser= new User({
-    username:validuser.username,
-    email:validuser.email,
-    password:hashpasssword
+export const SignIn = async (req, res, next) => {
+  try {
+    const validUser = await authjoi.validateAsync(req.body);
+    const hashedPassword = bcrypt.hashSync(validUser.password, 10);
 
-})
-await newUser.save();
+    const newUser = new User({
+      username: validUser.username,
+      email: validUser.email,
+      password: hashedPassword
+    });
 
-} catch (error) {
-    next(error)
+    await newUser.save();
+    res.status(200).json({ message: "Registration successful" });
+  } catch (error) {
+    next(error);
+  }
 }
+
+export const LogIn = async (req, res, next) => {
+  try {
+    const { email, password } = req.body;
+    const signInData = await User.findOne({ email });
+
+    if (!signInData) {
+      return res.status(404).json({ message: "Invalid email" });
+    }
+
+    const validPassword = bcrypt.compareSync(password, signInData.password);
+
+    if (!validPassword) {
+      return res.status(401).json({ message: "Invalid password" });
+    }
+
+    res.status(200).json({ message: "Login successful" });
+  } catch (error) {
+    next(error);
+  }
 }
+
+export default app;
