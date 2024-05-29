@@ -2,7 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import { config } from "dotenv";
 import authRouter from "./routes/authRoute.js";
-import productRouter from "./routes/productRoute.js"
+import productRouter from "./routes/adminRoute.js"
 import adminroute from "./routes/adminRoute.js"
 config()
 const app = express()
@@ -19,7 +19,7 @@ mongoose.connect(db)
 
 app.use('/api/users', authRouter);
 
-app.use('/api/admin',adminroute);
+// app.use('/api/admin',adminroute);
 app.use('/api/product',productRouter);
 
 

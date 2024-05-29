@@ -13,7 +13,7 @@ export const authJoi = Joi.object({
   password: Joi.string().min(8).required().pattern(new RegExp("^[a-zA-Z0-9]{3,30}$")).trim(),
 
 });
-//joi validation for product
+// joi validation for product
 export const productJoi = Joi.object({
   title: Joi.string().min(3).max(30).required(),
   description:Joi.string().min(3).max(50).required(),

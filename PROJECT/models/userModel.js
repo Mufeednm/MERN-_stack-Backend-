@@ -16,7 +16,7 @@ const userSchema = new mongoose.Schema({
     },
     profileImg: {
         type: String,
-        required: true
+        required: false
     },
     accountCreatedDate: {
         type: Date,
@@ -24,7 +24,7 @@ const userSchema = new mongoose.Schema({
         default: Date.now
     },
     isDeleted: {
-        type: Boolean,
+        type: Boolean, 
         default: false
     },
     cart: [{
