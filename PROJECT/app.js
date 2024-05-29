@@ -2,8 +2,8 @@ import express from "express";
 import mongoose from "mongoose";
 import { config } from "dotenv";
 import authRouter from "./routes/authRoute.js";
-import productRouter from "./routes/adminRoute.js"
 import adminroute from "./routes/adminRoute.js"
+import productRouter from "./routes/productRoute.js"
 config()
 const app = express()
 app.use(express.json());
@@ -18,9 +18,10 @@ mongoose.connect(db)
 
 
 app.use('/api/users', authRouter);
+app.use('/api/users', productRouter);
 
 // app.use('/api/admin',adminroute);
-app.use('/api/product',productRouter);
+app.use('/api/admin',adminroute);
 
 
 app.listen(PORT,()=>{

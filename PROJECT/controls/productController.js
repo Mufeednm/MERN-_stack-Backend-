@@ -1,30 +1,50 @@
-import Product from "../models/products.js"
-import express from "express";
-import { productJoi } from "../validation/authJOI.js";
+import Product from "../models/products.js";
 
-// Add product
-export const addproduct= async (req,res,next)=>{
+// show all Products
+export const allProduct = async (req, res) => {
+  try {
+    const allProducts = await Product.find();
+    // console.log(allProducts);
+    if (!allProducts) {
+      return res.status(404).json({ message: "no products is to finding" });
+    }
+    return res.status(200).json({ message: "all producs is shown" });
+  } catch (error) {
+    return res.status(404).json({ message: "no products is to finding" });
+  }
+};
 
-   try {
-      // const {title,description,price,category}= req.body;
-      const validatedProduct = await productJoi.validateAsync(req.body);
+//show products by id
 
-//  to mongodb
-const newProduct=new Product({
-   title : validatedProduct.title, 
-   description : validatedProduct.description,
-   price: validatedProduct.price,
-   category : validatedProduct.category,
-   productImg: req.cloudinaryImageUrl
-});
+export const productbyId = async (req, res, next) => {
+  try {
+    const product_id = req.params.id;
+    const productbyId = await Product.findById(product_id);
+    console.log(productbyId);
+    if (!productbyId) {
+      return res.status(404).json({ message: "no Products in this id" });
+    }
+    return res.status(200).json({productbyId});
+  } catch (error) {
+    return res.status(404).json({ message: "no Products in this id" });
+  }
+};
 
-await newProduct.save()
-res.status(201).json({message:"new product is ready"})
+// show by category name
+// export const productbyCategory=async (req,res)=>{
+//     const categoryName=req.params
 
-   } catch (error) {
 
-      next(error)
-      
-   }
-}
- 
+//     const products = await Product.find({
+//         $or: [
+//             { category: { $regex: new RegExp(categoryName, 'i') } },
+//             { title: { $regex: new RegExp(categoryName, 'i') } },           didnt under stand
+//         ]
+//     }).select('title category price');
+    
+//     if (products.length === 0) {
+//         return res.status(404).json({ message: "No items found in the given category" });
+//     }
+    
+//     res.status(200).json({ products });
+// }
