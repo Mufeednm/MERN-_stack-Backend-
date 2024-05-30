@@ -24,27 +24,26 @@ export const productbyId = async (req, res, next) => {
     if (!productbyId) {
       return res.status(404).json({ message: "no Products in this id" });
     }
-    return res.status(200).json({productbyId});
+    return res.status(200).json({ productbyId });
   } catch (error) {
     return res.status(404).json({ message: "no Products in this id" });
   }
 };
 
 // show by category name
-// export const productbyCategory=async (req,res)=>{
-//     const categoryName=req.params
-
-
-//     const products = await Product.find({
-//         $or: [
-//             { category: { $regex: new RegExp(categoryName, 'i') } },
-//             { title: { $regex: new RegExp(categoryName, 'i') } },           didnt under stand
-//         ]
-//     }).select('title category price');
-    
-//     if (products.length === 0) {
-//         return res.status(404).json({ message: "No items found in the given category" });
-//     }
-    
-//     res.status(200).json({ products });
-// }
+export const productbyCategory = async (req, res) => {
+  try {
+    const { categoryName } = req.params;
+    // regex brings the similiar items
+    const regex = new RegExp(categoryName, "i");
+    const products = await Product.find({
+      $or: [{ category: regex }, { title: regex }],
+    });
+    if (products.length == 0) {
+      return res.status(404).json({ message: "no Products in this category" });
+    }
+    return res.status(200).json(products);
+  } catch (error) {
+    console.log("error in category", error);
+  }
+};
