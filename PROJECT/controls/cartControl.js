@@ -59,6 +59,60 @@ export const viewCart = async(req,res)=>{
 }
 
 // add quantity of cart
-const addQuantity = (req,res)=>{
+ export const addQuantity = async (req,res)=>{
+try {
+    const id=req.params.id
+    const productid=req.params.productid
+    const quantityNum=req.body.quantityNum
+   
+    const user = await User.findById(id)
+    if (!user) {
+        res.status(404).json({message:"user not found"})
+    }
+    const product =await Product.findById(productid)
+    if (!product) {
+        res.status(404).json({message:"product is not found"})
+    }
+    const cartitem= await Cart.findOne({userid:user._id , productid:product._id} )
+    // console.log("cart",cartitem);
+    if (typeof quantityNum !== "number") {
+        res.status(404).json({message:"quantity should be number"})
+    }else{
+        cartitem.quantity +=quantityNum;
+        await cartitem.save()
+    }
+    res.status(200).json({message:"quantity is increased "})
+} catch (error) {
     
+    res.status(500).json({message:"internal server error"})
 }
+}
+
+export const decreaseQuantity = async (req,res)=>{
+    try {
+        const id=req.params.id
+        const productid=req.params.productid
+        const decrementNum=req.body.decrementNum
+       
+        const user = await User.findById(id)
+        if (!user) {
+            res.status(404).json({message:"user not found"})
+        }
+        const product =await Product.findById(productid)
+        if (!product) {
+            res.status(404).json({message:"product is not found"})
+        }
+        const cartitem= await Cart.findOne({userid:user._id , productid:product._id} )
+        // console.log("cart",cartitem);
+        if (typeof decrementNum !== "number") {
+            res.status(404).json({message:"quantity should be number"})
+        }else{
+            cartitem.quantity -=decrementNum;
+            await cartitem.save()
+        }
+        res.status(200).json({message:"quantity is decreased "})
+    } catch (error) {
+        
+        res.status(500).json({message:"internal server error"})
+    }
+    }

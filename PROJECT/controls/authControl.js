@@ -78,7 +78,7 @@ export const login = async (req,res)=>{
 
         //jwt setting
         const token = jwt.sign({id : validUser._id},process.env.USER_JWT_SECRET)
-        const { passwords :hashedpassword} =validUser._doc;
+        const { passwords :hashedpassword,...rest} =validUser._doc;
         const expiryDate = new Date(Date.now() + 60*1000);
 // console.log(passwords);
 
