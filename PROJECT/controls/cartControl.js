@@ -8,6 +8,7 @@ export const addtocart=async (req,res)=>{
  const {productid} = req.params
  
 const user= await User.findById(id)
+
 if (!user) {
 return res.status(404).json({message :" user is not found "})    
 }
@@ -116,3 +117,37 @@ export const decreaseQuantity = async (req,res)=>{
         res.status(500).json({message:"internal server error"})
     }
     }
+
+    //  REMOVE PRODUCT AND  USER ID  FROM only  CART 
+    export const removeCart=async (req,res)=>{
+        try {
+            const id=req.params.id
+            const productid=req.params.productid
+
+            const user = await User.findById(id)
+            if (!user) {
+                res.status(404).json({message:"user not found"})
+            }
+            const product =await Product.findById(productid)
+            if (!product) {
+                res.status(404).json({message:"product is not found"})
+            }
+            const cart =  await Cart.findOneAndDelete({userid:user._id,productid:product._id})
+            const  cartitemintex = user.cart.findIndex(item=>item.equals(cart._id))
+                  
+            
+            if (cartitemintex !==-1) {
+                user.cart.splice(cartitemintex,1)
+                await user.save()
+                res.status(200).json({message:"remove from cart and users Cart"})
+            
+            }
+            
+        } catch (error) {
+            
+        }
+    }
+
+
+    // rmoving cart items from the users cart array {schema}
+                //  user from 10 code

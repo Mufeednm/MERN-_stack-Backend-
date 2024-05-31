@@ -1,6 +1,7 @@
 import express from "express";
 import { allProduct, productbyCategory, productbyId } from "../controls/productController.js";
-import { addQuantity, addtocart, decreaseQuantity, viewCart } from "../controls/cartControl.js";
+import { addQuantity, addtocart, decreaseQuantity, removeCart, viewCart } from "../controls/cartControl.js";
+import { payment } from "../controls/paymentControl.js";
 const router=express.Router()
 // all product Route
 router.get("/products",allProduct)
@@ -19,3 +20,9 @@ router.get("/cart/:id",viewCart)
 router.post("/:id/carts/:productid",addQuantity)
 // decrease quantity to cart
 router.post("/:id/carts/decrement/:productid",decreaseQuantity)
+// remove   product from cart
+router.post("/:id/carts/remove/:productid",removeCart)
+
+
+// PAYMENT ROUTE
+router.post("/payment/:id",payment)
