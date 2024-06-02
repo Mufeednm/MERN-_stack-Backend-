@@ -31,7 +31,7 @@ const userSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Cart"
     }],
-    3.6958: [{
+    Wishlist: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Wishlist"
     }],

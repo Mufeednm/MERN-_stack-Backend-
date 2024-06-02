@@ -2,7 +2,7 @@ import express from "express";
 import { allProduct, productbyCategory, productbyId } from "../controls/productController.js";
 import { addQuantity, addtocart, decreaseQuantity, removeCart, viewCart } from "../controls/cartControl.js";
 import { payment } from "../controls/paymentControl.js";
-import { addWishlist } from "../controls/wishlistControl.js";
+import { addWishlist, showwishList } from "../controls/wishlistControl.js";
 const router=express.Router()
 // all product Route
 router.get("/products",allProduct)
@@ -27,6 +27,7 @@ router.post("/:id/carts/remove/:productid",removeCart)
 
 //WISHLIST 
 router.post("/:userid/wishlist/product/:productid",addWishlist)
+router.get("/wishlist/:id",showwishList)
 
 
 

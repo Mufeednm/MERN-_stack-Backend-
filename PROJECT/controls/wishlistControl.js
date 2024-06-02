@@ -1,7 +1,7 @@
 import Product from "../models/products.js";
 import User from "../models/userModel.js";
 import wishList from "../models/wishList.js";
-
+  // add to wish List
 export const addWishlist = async (req, res) => {
   try {
     const  userid = req.params.userid 
@@ -32,3 +32,18 @@ export const addWishlist = async (req, res) => {
     res.status(200).json({ message: "wishList added" });
   } catch (error) {}
 };
+
+//  show all Wish lists
+export const showwishList = async (req,res)=>{
+  const {id} =req.params
+const wishList= await User.findById(id).populate({
+  path:"Wishlist",
+  populate:{path:"productId"}
+})
+if (!showwishList || showwishList.length==0) {
+  res.status(404).json({message:"there is not a wishlist in User"})
+  
+}
+res.status(200).json({message:"wishlist is shown",wishList})
+
+}
