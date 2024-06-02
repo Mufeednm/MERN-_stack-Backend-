@@ -51,3 +51,45 @@ if (!showwishList || showwishList.length==0) {
 res.status(200).json({message:"wishlist is shown",wishList})
 
 }
+
+  // delete wishLIst
+
+export const deletewishlist = async (req, res) => {
+  try {
+      const { userid, productid } = req.params;
+// console.log(userid);
+// console.log(productid);
+      // Find user by ID
+      const user = await User.findById(userid);
+      if (!user) {
+          return res.status(404).json({ message: "User not found" });
+      }
+
+      // Find product by ID
+      const product = await Product.findById(productid);
+      if (!product) {
+          return res.status(400).json({ message: "Product not found" });
+      }
+
+      // Find and delete wishlist item
+      const wishlistItem = await wishList.findOneAndDelete({ userId: user._id, productId: product._id });
+      
+      if (!wishlistItem) {
+          return res.status(404).json({ message: "Product not found in the user's wishlist" });
+      }
+
+      const wishlistItemIndex = user.Wishlist.findIndex(item => item.equals (wishlistItem._id));
+
+      // If the wishlist item is found, remove it from the user's wishlist array
+      if (wishlistItemIndex !== -1) {
+          user.Wishlist.splice(wishlistItemIndex, 1);
+          await user.save();
+      }
+
+
+      return res.status(200).json({ message: "Product removed from wishlist successfully" });
+
+  } catch (error) {
+    
+  }
+}

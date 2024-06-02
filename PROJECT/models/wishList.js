@@ -8,7 +8,7 @@ const wishlistSchema =mongoose.Schema({
     },
     productId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Products", // Corrected reference name to singular form
+        ref: "Product", // Corrected reference name to singular form
         required: true,
     },
     quantity: {
