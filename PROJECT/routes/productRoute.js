@@ -28,7 +28,7 @@ router.post("/:id/carts/remove/:productid",removeCart)
 //WISHLIST 
 router.post("/:userid/wishlist/product/:productid",addWishlist)
 router.get("/wishlist/:id",showwishList)
-
+// router.delete("/:userid/wishlist/deleteproduct/:productid",deletewishlist)
 
 
 // PAYMENT ROUTE
