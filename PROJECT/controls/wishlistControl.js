@@ -6,6 +6,7 @@ export const addWishlist = async (req, res) => {
   try {
     const  userid = req.params.userid 
     const  productid  = req.params.productid
+    console.log(userid,'gg');
     const user = await User.findById(userid);
     if (!user) {
       res.status(404).json({ message: "user not found" });

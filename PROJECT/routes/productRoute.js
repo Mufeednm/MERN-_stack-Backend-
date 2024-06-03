@@ -3,16 +3,18 @@ import { allProduct, productbyCategory, productbyId } from "../controls/productC
 import { addQuantity, addtocart, decreaseQuantity, removeCart, viewCart } from "../controls/cartControl.js";
 import { payment } from "../controls/paymentControl.js";
 import { addWishlist, deletewishlist, showwishList } from "../controls/wishlistControl.js";
+import { usertoken } from "../middleware/userMiddleware.js";
+// import { usertoken } from "../middleware/userMiddleware.js";
 const router=express.Router()
+
 // all product Route
 router.get("/products",allProduct)
 // id product Route
 router.get("/products/:id",productbyId)
 // category Product Route
 router.get("/products/category/:categoryName",productbyCategory)
-export default router
 
-
+router.use(usertoken)
 // Route fo CART
 router.post("/:id/cart/:productid",addtocart)
 // view cart items
@@ -34,4 +36,5 @@ router.delete("/:userid/wishlist/deleteproduct/:productid",deletewishlist)
 // PAYMENT ROUTE
 router.post("/payment/:id",payment)
 
+export default router
 
