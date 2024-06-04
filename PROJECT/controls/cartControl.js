@@ -106,12 +106,16 @@ export const decreaseQuantity = async (req,res)=>{
         const cartitem= await Cart.findOne({userid:user._id , productid:product._id} )
         // console.log("cart",cartitem);
         if (typeof decrementNum !== "number") {
-            res.status(404).json({message:"quantity should be number"})
+          return  res.status(404).json({message:"quantity should be number"})
+        }   if  ( cartitem.quantity <= decrementNum) {
+         return   res.status(202).json({message:"cant decrese "})
         }else{
+
+            
             cartitem.quantity -=decrementNum;
-            await cartitem.save()
-        }
-        res.status(200).json({message:"quantity is decreased "})
+            await cartitem.save() 
+            res.status(200).json({message:"quantity is decreased "})
+        }          
     } catch (error) {
         
         res.status(500).json({message:"internal server error"})
