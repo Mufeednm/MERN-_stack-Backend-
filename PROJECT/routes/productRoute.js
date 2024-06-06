@@ -1,7 +1,7 @@
 import express from "express";
 import { allProduct, productbyCategory, productbyId } from "../controls/productController.js";
 import { addQuantity, addtocart, decreaseQuantity, removeCart, viewCart } from "../controls/cartControl.js";
-import { payment } from "../controls/paymentControl.js";
+import { payment, verifypayment } from "../controls/paymentControl.js";
 import { addWishlist, deletewishlist, showwishList } from "../controls/wishlistControl.js";
 import { usertoken } from "../middleware/userMiddleware.js";
 // import { usertoken } from "../middleware/userMiddleware.js";
@@ -35,6 +35,7 @@ router.delete("/:userid/wishlist/deleteproduct/:productid",deletewishlist)
 
 // PAYMENT ROUTE
 router.post("/payment/:id",payment)
+router.post("/verifypayment",verifypayment)
 
 export default router
 

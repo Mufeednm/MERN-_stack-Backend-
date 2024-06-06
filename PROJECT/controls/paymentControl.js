@@ -30,12 +30,25 @@ console.log(amount);
         };
 
         const order = await razorpay.orders.create(options);
-        console.log(order);
         res.json(order);
-
+        
+        console.log(order);
     } catch (error) {
         
-    }  }
+    } }
+
+
+
+
+export const verifypayment =(req,res)=>{
+try {
+     const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body
+} catch (error) {
+    
+}
+
+}
+    
 
 
 
