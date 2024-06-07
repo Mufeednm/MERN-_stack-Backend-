@@ -4,7 +4,7 @@ dotenv.config()
 import Razorpay from "razorpay"
 import Order from "../models/ordersModel.js";
 import crypto from 'crypto';
-import { log } from "console";
+// import { log } from "console";
 
 const razorpay = new Razorpay({
                 key_id: process.env.Razorpay_key_id,
@@ -65,7 +65,7 @@ export const verifypayment = async(req,res)=>{
         const order = await razorpay.orders.fetch(razorpay_order_id);
         
         const user = await User.findById(order.notes.userid).populate({path:"cart",populate:{path:"productid"}})
-        console.log(user.product);
+        // console.log(user.product);
         
 // console.log(order);
         const newOrder = new Order({
@@ -84,7 +84,7 @@ export const verifypayment = async(req,res)=>{
 
         await newOrder.save();
 
-        user.cart = [];
+        user.orders.push(newOrder)
         await user.save();
 
         res.send('Payment verified successfully');

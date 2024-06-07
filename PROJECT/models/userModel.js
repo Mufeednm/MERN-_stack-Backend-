@@ -37,7 +37,7 @@ const userSchema = new mongoose.Schema({
     }],
     orders:[{
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Orders"
+        ref: "Order"
     }]
 }, { timestamps: true });
 

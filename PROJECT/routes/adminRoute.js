@@ -1,7 +1,7 @@
 import express from "express";
 import { addproduct, adminproduct, deleteproduct, showbycategory, updateproduct,  } from "../controls/adminproductController.js";
 import uploadImage from "../middleware/uploadimage.js";
-import { adminlogin,allusers ,finduser} from "../controls/adminloginController.js";
+import { adminlogin,allusers ,finduser, totalpurchased} from "../controls/adminloginController.js";
 const router = express.Router();
 
 
@@ -21,6 +21,8 @@ router.get("/Productss", showbycategory);
 router.put("/Product/:id", updateproduct);
 // delete products 
 router.delete("/Product/:productid", deleteproduct);
+// Total products purchased.
+router.get("/Totalproductspurchased", totalpurchased);
 
 
 export default router

@@ -1,6 +1,6 @@
 import express from "express";
 import { allProduct, productbyCategory, productbyId } from "../controls/productController.js";
-import { addQuantity, addtocart, decreaseQuantity, removeCart, viewCart } from "../controls/cartControl.js";
+import { addQuantity, addtocart, decreaseQuantity, removeCart, viewCart, vieworders } from "../controls/cartControl.js";
 import { payment, verifypayment } from "../controls/paymentControl.js";
 import { addWishlist, deletewishlist, showwishList } from "../controls/wishlistControl.js";
 import { usertoken } from "../middleware/userMiddleware.js";
@@ -25,6 +25,8 @@ router.post("/:id/carts/:productid",addQuantity)
 router.post("/:id/carts/decrement/:productid",decreaseQuantity)
 // remove   product from cart
 router.post("/:id/carts/remove/:productid",removeCart)
+// get all the order
+router.get("/allorders/:userid",vieworders)
 
 
 //WISHLIST 

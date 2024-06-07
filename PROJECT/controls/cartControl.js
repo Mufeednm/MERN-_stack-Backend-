@@ -1,3 +1,4 @@
+
 import Cart from "../models/cartModel.js"
 import Product from "../models/products.js"
 import User from "../models/userModel.js"
@@ -153,5 +154,21 @@ export const decreaseQuantity = async (req,res)=>{
     }
 
 
-    // rmoving cart items from the users cart array {schema}
-                //  user from 10 code
+    // show all the orders
+    export const vieworders= async (req,res)=>{
+           try {
+            const {userid}=req.params
+            console.log(userid);
+            const findorder= await User.findById(userid).populate({
+                path:"orders",
+                populate:{path:"products"}
+            })
+            /
+            res.status(200).json(findorder.orders)
+           } catch (error) {
+            
+           }
+    }
+
+
+    

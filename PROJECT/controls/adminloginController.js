@@ -1,6 +1,8 @@
 import  JsonWebToken from 'jsonwebtoken';
 import dotenv from "dotenv"
 import User from '../models/userModel.js';
+import Order from '../models/ordersModel.js';
+// import items from 'razorpay/dist/types/items.js';
 dotenv.config()
 const jwt =JsonWebToken
 
@@ -44,3 +46,22 @@ export const finduser=async(req,res)=>{
  res.status(200).json(finduser)
     
 }
+
+// Total products purchased.
+export const totalpurchased=async(req,res)=>{
+   
+    const findtotalpurchase=await Order.find().populate({path:"products",select : "title"})
+    
+    const totalproducts = findtotalpurchase.reduce((acc, order) => acc + order.products, 0);
+    const totalRevenue = findtotalpurchase.reduce((acc, order) => acc + order.totalPrice, 0);
+    const productTitles = findtotalpurchase.map(product => product.title);
+    console.log( productTitles);
+    if (findtotalpurchase.length==0) {
+       res.status(404).json({message:"user not found"})
+    }
+    res.status(200).json({totalpurchased: totalproducts,
+    totalRevenue: totalRevenue,
+  
+    })
+       
+   }
