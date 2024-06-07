@@ -80,3 +80,4 @@ export const deleteproduct=async(req,res)=>{
 // await product.save()
 res.status(200).json({ message: "Product successfully deleted" });
 } 
+
