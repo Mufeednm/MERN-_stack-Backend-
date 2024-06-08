@@ -27,7 +27,7 @@ export const payment=async(req,res)=>{
         const productNames = user.cart.map(item => item.productid.title).join(', ');
         // console.log(productNames);
             // Assuming each cart item has a quantity and productid has a price
-// console.log(amount);
+console.log(amount);
         const options = {
             amount: amount*100, // amount in the smallest currency unit
             currency: 'INR',

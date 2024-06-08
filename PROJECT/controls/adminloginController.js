@@ -15,7 +15,7 @@ const jwt =JsonWebToken
         res.status(404).json({message:"wrong Admin"})
     }
     // token
-    const token = jwt.sign({username},process.env.Admin_JWT_SECRET)
+    const token = jwt.sign({username},process.env.ADMIN_JWT_SECRET)
     // cokkie
     res.cookie('access_token' , token , {httpOnly:true })
     .json({message:"admin logined",token})

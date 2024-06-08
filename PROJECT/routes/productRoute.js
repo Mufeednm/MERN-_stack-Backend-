@@ -3,6 +3,7 @@ import { allProduct, productbyCategory, productbyId } from "../controls/productC
 import { addQuantity, addtocart, decreaseQuantity, removeCart, viewCart, vieworders } from "../controls/cartControl.js";
 import { payment, verifypayment } from "../controls/paymentControl.js";
 import { addWishlist, deletewishlist, showwishList } from "../controls/wishlistControl.js";
+import { usertoken } from "../middleware/userMiddleware.js";
 
 const router=express.Router()
 
@@ -13,7 +14,7 @@ router.get("/products/:id",productbyId)
 // category Product Route
 router.get("/products/category/:categoryName",productbyCategory)
 
-// router.use(usertoken)
+router.use(usertoken)
 // Route fo CART
 router.post("/:id/cart/:productid",addtocart)
 // view cart items

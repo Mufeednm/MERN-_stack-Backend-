@@ -3,6 +3,7 @@ import { addproduct, adminproduct, deleteproduct, showbycategory, updateproduct,
 import uploadImage from "../middleware/uploadimage.js";
 import { adminlogin,allusers ,finduser, totalpurchased} from "../controls/adminloginController.js";
 import TrycatchMiddleware from "../middleware/errorMiddleware.js";
+import { admintoken } from "../middleware/adminMiddleware.js";
 const router = express.Router();
 
 
@@ -11,6 +12,7 @@ router.post("/addproducts",uploadImage, addproduct);
 // login admin
 router.post("/login", adminlogin);
 // all Usesr
+router.use(admintoken)
 router.get("/Users",TrycatchMiddleware(allusers));
 // find  User as per id
 router.get("/Users/:id",finduser);
