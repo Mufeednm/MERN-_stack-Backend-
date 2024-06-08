@@ -12,14 +12,7 @@ const orderSchema = new mongoose.Schema({
             ref: "Product",
             required: true,
         },
-        quantity: {
-            type: Number,
-            required: true,
-        },
-        price: {
-            type: Number,
-            required: true,
-        }
+     
     }],
     purchaseDate: {
         type: Date,

@@ -24,17 +24,14 @@ const jwt =JsonWebToken
 }
 // Show all users
 export  const allusers =async (req,res)=>{
-    try {
+ 
         const allusers = await User.find()
         if (allusers.length==0) {
             res.status(404).json({message:"no users"})
         }
         res.status(202).json(allusers)
-    } catch (error) {
-        res.status(404).json({message:"error"},error)
-    
     }
-}
+
 // Show user as per id
 
 export const finduser=async(req,res)=>{
@@ -50,18 +47,27 @@ export const finduser=async(req,res)=>{
 // Total products purchased.
 export const totalpurchased=async(req,res)=>{
    
-    const findtotalpurchase=await Order.find().populate({path:"products",select : "title"})
+    // const findtotalpurchase=await Order.find().populate({path:"products"})
+    const findtotalpurchase=await Order.find().populate('products.productId')
+   
     
     const totalproducts = findtotalpurchase.reduce((acc, order) => acc + order.products, 0);
     const totalRevenue = findtotalpurchase.reduce((acc, order) => acc + order.totalPrice, 0);
-    const productTitles = findtotalpurchase.map(product => product.title);
-    console.log( productTitles);
+
+    const allProducts = findtotalpurchase.flatMap(order => order.products)
+    const productTitless = allProducts.map(product => product.productId.title)
+    
+    console.log("total products ",totalproducts);
+    console.log("total revenue ",totalRevenue);
+    console.log("total products name purchased ",productTitless);
+
     if (findtotalpurchase.length==0) {
        res.status(404).json({message:"user not found"})
     }
     res.status(200).json({totalpurchased: totalproducts,
-    totalRevenue: totalRevenue,
-  
-    })
+        productsname:productTitless,
+    totalRevenue: totalRevenue
+    
+});
        
    }

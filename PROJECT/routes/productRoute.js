@@ -3,12 +3,11 @@ import { allProduct, productbyCategory, productbyId } from "../controls/productC
 import { addQuantity, addtocart, decreaseQuantity, removeCart, viewCart, vieworders } from "../controls/cartControl.js";
 import { payment, verifypayment } from "../controls/paymentControl.js";
 import { addWishlist, deletewishlist, showwishList } from "../controls/wishlistControl.js";
-import { usertoken } from "../middleware/userMiddleware.js";
-// import { usertoken } from "../middleware/userMiddleware.js";
+
 const router=express.Router()
 
 // all product Route
-router.get("/products",allProduct)
+router.get("/products", allProduct)
 // id product Route
 router.get("/products/:id",productbyId)
 // category Product Route
